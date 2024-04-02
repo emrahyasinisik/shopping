@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shopping/models/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -10,7 +9,9 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,7 +27,7 @@ class ProductCard extends StatelessWidget {
                         child: Image.network(
                           product.imageUrl,
                           fit: BoxFit.cover,
-                          height: 180,
+                          height: 250,
                         ),
                       ),
                       Positioned(
@@ -36,19 +37,22 @@ class ProductCard extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Colors.grey,
+                                color: Color.fromARGB(74, 158, 158, 158),
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(12),
                                     bottomRight: Radius.circular(12),
                                     topRight: Radius.circular(12),
                                     bottomLeft: Radius.circular(12)),
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(3.0),
-                                child: Icon(
-                                  Icons.shopping_bag_rounded,
-                                  size: 40,
-                                  color: Colors.black,
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: const Icon(
+                                    Icons.shopping_bag,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -58,6 +62,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 10),
             Text(product.productName),
             Text("\$${product.price.toStringAsFixed(2)}"),
           ],

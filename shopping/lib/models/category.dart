@@ -3,5 +3,11 @@ import 'package:flutter/material.dart';
 class CategoryCardModel {
   final IconData icon;
   final String title;
-  const CategoryCardModel({required this.icon, required this.title});
+  final Color iconcolor;
+
+  const CategoryCardModel({
+    required this.iconcolor,
+    required this.icon,
+    required this.title,
+  });
 }

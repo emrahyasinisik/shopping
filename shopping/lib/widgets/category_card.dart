@@ -26,7 +26,12 @@ class CategoryCard extends StatelessWidget {
             width: 60,
             child: InkWell(
               onTap: () {},
-              child: Icon(categoryCardModel.icon),
+              child: Icon(
+                categoryCardModel.icon,
+                size: 40,
+                color: categoryCardModel.iconcolor,
+                fill: 0.1,
+              ),
             ),
           ),
         ),
