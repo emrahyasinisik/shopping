@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shopping/data/category_data.dart';
 import 'package:shopping/data/product_data.dart';
 import 'package:shopping/models/product.dart';
+import 'package:shopping/screens/favorite_screen.dart';
 
 import 'package:shopping/widgets/category_card.dart';
 import 'package:shopping/widgets/product_card.dart';
@@ -48,7 +48,14 @@ class _StartScreenState extends State<StartScreen> {
   // Geçerli sayfayı değiştirmek için kullanılan fonksiyon
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = index; // Tıklanan öğenin indeksini güncelle
+
+      if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+        );
+      }
     });
   }
 
@@ -123,7 +130,6 @@ class _StartScreenState extends State<StartScreen> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
         onTap: _onItemTapped,
-        
       ),
     );
   }

@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping/models/product.dart';
+import 'package:shopping/providers/favorites_provider.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerStatefulWidget {
   const ProductCard({super.key, required this.product});
   final Product product;
+
+  @override
+  ConsumerState<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends ConsumerState<ProductCard> {
   @override
   Widget build(BuildContext context) {
+    final favorites = ref.watch(favoriteProductProvider);
+
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -25,7 +35,7 @@ class ProductCard extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.network(
-                          product.imageUrl,
+                          widget.product.imageUrl,
                           fit: BoxFit.cover,
                           height: 250,
                         ),
@@ -47,11 +57,17 @@ class ProductCard extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(3.0),
                                 child: InkWell(
-                                  onTap: () {},
-                                  child: const Icon(
-                                    Icons.shopping_bag,
+                                  onTap: () {
+                                    ref
+                                        .read(favoriteProductProvider.notifier)
+                                        .toggleProductFavorite(widget.product);
+                                  },
+                                  child: Icon(
+                                    favorites.contains(widget.product)
+                                        ? Icons.shopping_bag
+                                        : Icons.shopping_bag_outlined,
+                                    color: Colors.black,
                                     size: 30,
-                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -63,8 +79,8 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text(product.productName),
-            Text("\$${product.price.toStringAsFixed(2)}"),
+            Text(widget.product.productName),
+            Text("\$${widget.product.price.toStringAsFixed(2)}"),
           ],
         ),
       ),
